@@ -34,7 +34,7 @@ OPENAI_URL = "https://api.openai.com/v1"
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["expense-tracker-80ij.onrender.com"]
 
 MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 MEDIA_URL = "/media/"
@@ -59,6 +59,9 @@ INSTALLED_APPS = [
 
 INTERNAL_IPS = [
     '127.0.0.1',
+    '18.156.158.53',
+    '18.156.42.200',
+    '52.59.103.54',
 ]
 
 MIDDLEWARE = [
