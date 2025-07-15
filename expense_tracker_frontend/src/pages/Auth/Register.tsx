@@ -5,17 +5,19 @@ import {NavbarEmpty} from "../../components/NavbarEmpty";
 import {observer} from "mobx-react-lite";
 import {useToken} from "../../utils/AuthContext";
 import {getApiUrlForCurrentWindow} from "../../utils/Network";
-import {Col, Form, Row, Container, Button} from "react-bootstrap";
+import {Col, Form, Row, Container} from "react-bootstrap";
 import {SubmitButton} from "../../components/SubmitButton";
 
-export const Login = () => {
+export const Register = () => {
   const auth = useToken();
 
   let bodyParameters = {
     username: "",
+    email: "",
     password: "",
   };
   const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
   if (auth.getToken() !== "") {
@@ -24,17 +26,12 @@ export const Login = () => {
   const submitHandler = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     bodyParameters.username = username;
+    bodyParameters.email = email;
     bodyParameters.password = password;
 
-    axios
-      .post(`${getApiUrlForCurrentWindow()}/api-token-auth/`, bodyParameters)
-      .then((response) => {
-        auth.setToken(response.data.token);
-        navigate("/transactions");
-      })
-      .catch((err) => {
-        console.error(err);
-      });
+    axios.post(`api/register`, bodyParameters).then((res)=>{
+      navigate("/login");
+    })
   };
   return (
     <Container>
@@ -57,6 +54,20 @@ export const Login = () => {
           </Row>
           <Row className="mb-3">
             <Col xs={4} sm={2} className="text-end">
+              <Form.Label htmlFor="id_email">Email</Form.Label>
+            </Col>
+            <Col xs={8} sm={10}>
+              <Form.Control
+                type="text"
+                name="email"
+                key="id_email"
+                required={true}
+                onChange={(e) => setEmail(e.target.value)}
+              />
+            </Col>
+          </Row>
+          <Row className="mb-3">
+            <Col xs={4} sm={2} className="text-end">
               <Form.Label htmlFor="id_password">Password</Form.Label>
             </Col>
             <Col xs={8} sm={10}>
@@ -69,8 +80,7 @@ export const Login = () => {
               />
             </Col>
           </Row>
-          <Button variant="link" onClick={()=>navigate("/register")}>Register</Button>
-          <SubmitButton text="Log in" />
+          <SubmitButton text="Register" />
         </Form.Group>
       </Form>
     </Container>

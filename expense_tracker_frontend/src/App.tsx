@@ -25,6 +25,7 @@ import {TransactionEdit} from "./pages/Transactions/TransactionEdit";
 import {AccountSync} from "./pages/Accounts/AccountSync";
 import {TransactionCreateBatch} from "./pages/Transactions/TransactionCreateBatch";
 import {TransactionBatch} from "./pages/Transactions/TransactionBatch";
+import {Register} from "./pages/Auth/Register";
 
 function App() {
   return (
@@ -71,6 +72,7 @@ function App() {
         <Route path="presets/:id/edit" element={<PresetEdit />}></Route>
         {/*Auth/User routes*/}
         <Route path="login" element={<Login />}></Route>
+        <Route path="register" element={<Register />}></Route>
         <Route path="user/edit" element={<UserEdit />}></Route>
         {/*Redirect to login on startup route*/}
         <Route path="/" element={<Navigate to="/login" replace />} />

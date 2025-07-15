@@ -585,3 +585,9 @@ def next_batch_item_id(request, batch_id, current_id):
         return Response({'id': next_item.id}, status=status.HTTP_200_OK)
     else:
         return Response(status=status.HTTP_204_NO_CONTENT)
+
+@api_view(["POST"])
+def register(request):
+    user = User.objects.create_user(username=request.data["username"], email=request.data["email"], password=request.data["password"])
+    user.save()
+    return Response({'user': user.id, 'username': user.username}, status=status.HTTP_201_CREATED)
