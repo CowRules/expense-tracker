@@ -2,7 +2,7 @@ import axios from "axios";
 import {AxiosRequestConfig, AxiosResponse} from "axios";
 
 export function getApiUrl(location: Location) {
-  return `${location.protocol}//${location.host}/api/`;
+  return `https://expense-tracker-80ij.onrender.com/api/`;
 }
 
 export function getApiUrlForCurrentWindow() {

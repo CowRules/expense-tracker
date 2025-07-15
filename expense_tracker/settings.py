@@ -16,7 +16,7 @@ from dotenv import load_dotenv
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-BASE_URL = "http://localhost:8000"
+BASE_URL = "0.0.0.0"
 
 
 # Quick-start development settings - unsuitable for production
@@ -34,7 +34,7 @@ OPENAI_URL = "https://api.openai.com/v1"
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["expense-tracker-80ij.onrender.com"]
+ALLOWED_HOSTS = ["expense-tracker-80ij.onrender.com", "0.0.0.0"]
 
 MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 MEDIA_URL = "/media/"
@@ -62,6 +62,7 @@ INTERNAL_IPS = [
     '18.156.158.53',
     '18.156.42.200',
     '52.59.103.54',
+    '0.0.0.0',
 ]
 
 MIDDLEWARE = [

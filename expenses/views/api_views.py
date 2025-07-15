@@ -141,13 +141,15 @@ class TransactionView(generics.ListCreateAPIView):
                 transaction_image.save()
             for img in self.request.POST.getlist("images"):
                 if img.split("/")[-2] == "transaction_batch":
-                    img_res = requests.get(img)
-                    if img_res.status_code == 200:
-                        image = ContentFile(img_res.content, name=img.split("/")[-1])
-                        transaction_image = models.TransactionImage.objects.create(
-                            transaction=transaction, image=image
-                        )
-                        transaction_image.save()
+                    db_image = models.TransactionCreateBatchRemainingTransactions.objects.get(image=img.split("/media/")[-1])
+                    db_image.image.open()
+                    img_res = db_image.image.read()
+                    db_image.image.close()
+                    image = ContentFile(img_res, name=img.split("/")[-1])
+                    transaction_image = models.TransactionImage.objects.create(
+                        transaction=transaction, image=image
+                    )
+                    transaction_image.save()
             return Response(status=status.HTTP_201_CREATED)
         if self.request.data['action'] == "delete":
             transaction = models.Transaction.objects.get(id=self.request.data['id'])
@@ -585,6 +587,7 @@ def next_batch_item_id(request, batch_id, current_id):
         return Response({'id': next_item.id}, status=status.HTTP_200_OK)
     else:
         return Response(status=status.HTTP_204_NO_CONTENT)
+
 
 @api_view(["POST"])
 def register(request):

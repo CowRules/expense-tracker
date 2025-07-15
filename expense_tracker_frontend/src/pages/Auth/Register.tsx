@@ -29,7 +29,7 @@ export const Register = () => {
     bodyParameters.email = email;
     bodyParameters.password = password;
 
-    axios.post(`api/register`, bodyParameters).then((res)=>{
+    axios.post(`${getApiUrlForCurrentWindow()}register`, bodyParameters).then((res)=>{
       navigate("/login");
     })
   };
